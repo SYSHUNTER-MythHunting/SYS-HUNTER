@@ -7,29 +7,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
-
   <style>
     :root {
-      --bg:        #03060F;
-      --bg2:       #070D1E;
-      --panel:     #0A1228;
-      --panel2:    #0D1830;
-      --border:    #1A2E52;
-      --border2:   #243F6E;
-      --red:       #BF1C1C;
-      --red-dim:   #7A1212;
-      --blue:      #1A4A8A;
-      --blue-light:#4A9EFF;
-      --gold:      #C9A04A;
-      --gold-dim:  #7A6030;
-      --green:     #2A6A3A;
-      --green-light:#4AFF88;
-      --text:      #C8D8EE;
-      --text-dim:  #5A7A9A;
-      --text-faint:#1E3050;
-      --white:     #EEF4FF;
+      --bg:          #03060F;
+      --bg2:         #070D1E;
+      --panel:       #0A1228;
+      --border:      #1A2E52;
+      --border2:     #243F6E;
+      --red:         #BF1C1C;
+      --red-dim:     #7A1212;
+      --blue:        #1A4A8A;
+      --blue-light:  #4A9EFF;
+      --gold:        #C9A04A;
+      --gold-dim:    #7A6030;
+      --green-light: #4AFF88;
+      --green:       #2A6A3A;
+      --text:        #C8D8EE;
+      --text-dim:    #5A7A9A;
+      --text-faint:  #1E3050;
+      --white:       #EEF4FF;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -38,11 +35,8 @@
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
-      cursor: default;
       min-height: 100vh;
     }
-
-    /* scanlines */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -74,39 +68,14 @@
       max-width: 1300px; margin: 0 auto;
       border-bottom: 1px solid var(--border);
     }
-    .page-header-inner {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      flex-wrap: wrap; gap: 32px;
-    }
-    .page-eyebrow {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 5px; color: var(--gold);
-      margin-bottom: 10px;
-    }
-    .page-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(40px, 7vw, 80px);
-      letter-spacing: 4px; color: var(--white); line-height: 1;
-    }
-    .page-subtitle {
-      font-size: 14px; color: var(--text-dim); margin-top: 12px;
-      max-width: 500px; line-height: 1.8;
-    }
-    .db-stats {
-      display: flex; gap: 32px; flex-wrap: wrap;
-    }
-    .stat {
-      text-align: right;
-    }
-    .stat-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 36px; color: var(--blue-light); line-height: 1;
-    }
-    .stat-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 2px; color: var(--text-faint);
-      margin-top: 2px;
-    }
+    .page-header-inner { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px; }
+    .page-eyebrow { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 5px; color: var(--gold); margin-bottom: 10px; }
+    .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 7vw, 80px); letter-spacing: 4px; color: var(--white); line-height: 1; }
+    .page-subtitle { font-size: 14px; color: var(--text-dim); margin-top: 12px; max-width: 500px; line-height: 1.8; }
+    .db-stats { display: flex; gap: 32px; flex-wrap: wrap; }
+    .stat { text-align: right; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--blue-light); line-height: 1; }
+    .stat-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--text-faint); margin-top: 2px; }
 
     /* ── FILTER BAR ── */
     .filter-bar {
@@ -114,46 +83,28 @@
       max-width: 1300px; margin: 0 auto;
       display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
     }
-    .filter-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 3px; color: var(--text-faint);
-    }
+    .filter-label { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--text-faint); }
     .filter-btn {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 11px; font-weight: 600; letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      cursor: pointer;
-      transition: all 0.2s;
+      text-transform: uppercase; padding: 6px 16px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-dim); cursor: pointer; transition: all 0.2s;
       clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
     }
     .filter-btn:hover { border-color: var(--blue-light); color: var(--blue-light); }
     .filter-btn.active { background: var(--blue); border-color: var(--blue-light); color: var(--white); }
-    .search-wrap {
-      margin-left: auto;
-      position: relative;
-    }
+    .search-wrap { margin-left: auto; position: relative; }
     .search-input {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 1px;
-      padding: 8px 16px 8px 36px;
-      width: 240px;
-      outline: none;
-      transition: border-color 0.2s;
+      background: var(--panel); border: 1px solid var(--border);
+      color: var(--text); font-family: 'Share Tech Mono', monospace;
+      font-size: 11px; letter-spacing: 1px;
+      padding: 8px 16px 8px 36px; width: 240px;
+      outline: none; transition: border-color 0.2s;
     }
     .search-input::placeholder { color: var(--text-faint); }
     .search-input:focus { border-color: var(--blue-light); }
-    .search-icon {
-      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-      color: var(--text-faint); font-size: 12px;
-    }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-faint); font-size: 12px; }
 
     /* ── DOCUMENT GRID ── */
     .doc-grid {
@@ -166,109 +117,64 @@
 
     /* ── DOCUMENT CARD ── */
     .doc-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
+      background: var(--panel); border: 1px solid var(--border);
+      padding: 28px; position: relative; overflow: hidden;
       cursor: pointer;
       transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
       clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+      opacity: 0; transform: translateY(16px);
+      animation: cardIn 0.4s forwards;
     }
+    @keyframes cardIn { to { opacity: 1; transform: none; } }
     .doc-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
       background: linear-gradient(90deg, var(--red), transparent);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.3s;
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
     }
     .doc-card:hover { border-color: var(--border2); transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
     .doc-card:hover::before { transform: scaleX(1); }
-
-    /* Corner notch indicator */
     .doc-card::after {
-      content: '';
-      position: absolute; top: 0; right: 0;
-      width: 0; height: 0;
-      border-style: solid;
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 0; height: 0; border-style: solid;
       border-width: 0 20px 20px 0;
       border-color: transparent var(--border) transparent transparent;
     }
 
+    /* classification badge colours */
     .doc-classification {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 3px;
-      padding: 3px 10px;
-      border: 1px solid;
-      display: inline-block; margin-bottom: 16px;
+      font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 3px;
+      padding: 3px 10px; border: 1px solid; display: inline-block; margin-bottom: 16px;
     }
-    .class-beyond-black { color: var(--red); border-color: var(--red-dim); background: rgba(191,28,28,0.06); }
-    .class-classified   { color: var(--gold); border-color: var(--gold-dim); background: rgba(201,160,74,0.06); }
-    .class-open         { color: var(--green-light); border-color: var(--green); background: rgba(74,255,136,0.05); }
-    .class-restricted   { color: var(--blue-light); border-color: var(--blue); background: rgba(74,158,255,0.06); }
+    .class-beyond-black { color: var(--red);         border-color: var(--red-dim);  background: rgba(191,28,28,0.06); }
+    .class-classified   { color: var(--gold);        border-color: var(--gold-dim); background: rgba(201,160,74,0.06); }
+    .class-open         { color: var(--green-light); border-color: var(--green);    background: rgba(74,255,136,0.05); }
+    .class-restricted   { color: var(--blue-light);  border-color: var(--blue);     background: rgba(74,158,255,0.06); }
 
-    .doc-id {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; color: var(--text-faint); letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
-    .doc-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px; letter-spacing: 2px; color: var(--white);
-      line-height: 1.1; margin-bottom: 6px;
-    }
-    .doc-subtitle {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; font-weight: 600; letter-spacing: 2px;
-      color: var(--text-dim); text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .doc-desc {
-      font-size: 13px; line-height: 1.8; color: var(--text-dim);
-      margin-bottom: 20px;
-    }
-    .doc-meta {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      border-top: 1px solid var(--text-faint);
-      padding-top: 14px; flex-wrap: wrap; gap: 8px;
-    }
-    .doc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-    .doc-tag {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 8px; letter-spacing: 1px;
-      padding: 2px 8px;
-      background: var(--bg2); border: 1px solid var(--text-faint);
-      color: var(--text-faint);
-    }
-    .doc-cta {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 2px; color: var(--blue-light);
-    }
+    .doc-id    { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--text-faint); letter-spacing: 2px; margin-bottom: 8px; }
+    .doc-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: var(--white); line-height: 1.1; margin-bottom: 6px; }
+    .doc-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 16px; }
+    .doc-desc  { font-size: 13px; line-height: 1.8; color: var(--text-dim); margin-bottom: 20px; }
+    .doc-meta  { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid var(--text-faint); padding-top: 14px; flex-wrap: wrap; gap: 8px; }
+    .doc-tags  { display: flex; gap: 6px; flex-wrap: wrap; }
+    .doc-tag   { font-family: 'Share Tech Mono', monospace; font-size: 8px; letter-spacing: 1px; padding: 2px 8px; background: var(--bg2); border: 1px solid var(--text-faint); color: var(--text-faint); }
+    .doc-cta   { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--blue-light); }
 
-    /* Placeholder card */
+    /* placeholder card */
     .doc-card.placeholder {
-      border-style: dashed; border-color: var(--text-faint);
-      cursor: default; opacity: 0.4;
+      border-style: dashed; border-color: var(--text-faint); cursor: default; opacity: 0.3;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      min-height: 220px; text-align: center;
-      clip-path: none;
+      min-height: 220px; text-align: center; clip-path: none; animation: none;
     }
     .doc-card.placeholder::before, .doc-card.placeholder::after { display: none; }
-    .placeholder-icon { font-size: 32px; color: var(--text-faint); margin-bottom: 12px; }
-    .placeholder-text {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11px; letter-spacing: 3px; color: var(--text-faint);
-    }
+    .placeholder-icon { font-size: 28px; color: var(--text-faint); margin-bottom: 12px; }
+    .placeholder-text { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--text-faint); line-height: 2; }
 
     /* ── READER OVERLAY ── */
     .reader-overlay {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.92);
-      z-index: 2000;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s;
-      backdrop-filter: blur(4px);
+      background: rgba(0,0,0,0.94);
+      z-index: 2000; display: none; opacity: 0;
+      transition: opacity 0.3s; backdrop-filter: blur(6px);
     }
     .reader-overlay.open { display: flex; flex-direction: column; }
     .reader-overlay.visible { opacity: 1; }
@@ -280,205 +186,83 @@
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
-    .reader-title-bar {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 18px; letter-spacing: 3px; color: var(--text-dim);
+    .reader-doc-label { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 3px; color: var(--text-dim); }
+    .reader-doc-label span { color: var(--white); }
+    .reader-controls { display: flex; gap: 12px; align-items: center; }
+    .reader-btn {
+      font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px;
+      background: none; cursor: pointer; padding: 6px 14px; transition: all 0.2s;
     }
-    .reader-title-bar span { color: var(--white); }
-    .reader-controls { display: flex; gap: 16px; align-items: center; }
-    .reader-close {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11px; letter-spacing: 2px; color: var(--red);
-      background: none; border: 1px solid var(--red-dim);
-      padding: 6px 16px; cursor: pointer;
-      transition: all 0.2s;
-    }
-    .reader-close:hover { background: var(--red); color: #fff; }
+    .reader-btn-toc   { color: var(--text-dim);  border: 1px solid var(--border); }
+    .reader-btn-toc:hover { color: var(--blue-light); border-color: var(--blue-light); }
+    .reader-btn-close { color: var(--red);       border: 1px solid var(--red-dim); }
+    .reader-btn-close:hover { background: var(--red); color: #fff; }
 
-    .reader-body {
-      flex: 1; overflow-y: auto;
-      padding: 48px 32px;
-      display: flex; justify-content: center;
+    .reader-layout { display: flex; flex: 1; overflow: hidden; }
+    .reader-body   { flex: 1; overflow-y: auto; padding: 56px 32px; }
+    .reader-content { max-width: 760px; margin: 0 auto; }
+
+    /* TOC sidebar */
+    .reader-toc {
+      width: 0; overflow: hidden;
+      background: rgba(7,13,30,0.98);
+      border-left: 1px solid var(--border);
+      transition: width 0.3s;
+      flex-shrink: 0;
     }
-    .reader-content {
-      max-width: 780px; width: 100%;
+    .reader-toc.open { width: 220px; overflow-y: auto; padding: 24px 14px; }
+    .toc-head { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--text-faint); margin-bottom: 16px; }
+    .toc-item { font-family: 'Barlow', sans-serif; font-size: 12px; color: var(--text-dim); line-height: 1.6; padding: 6px 8px; cursor: pointer; border-radius: 2px; transition: color 0.2s; }
+    .toc-item:hover { color: var(--blue-light); }
+
+    /* Loading state */
+    .reader-loading {
+      display: flex; align-items: center; justify-content: center;
+      height: 200px;
+      font-family: 'Share Tech Mono', monospace; font-size: 11px;
+      letter-spacing: 3px; color: var(--text-faint);
     }
 
-    /* Reader typography */
-    .reader-content .doc-header {
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 32px; margin-bottom: 40px;
-    }
-    .reader-content .doc-header .classification-stamp {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11px; letter-spacing: 4px;
+    /* ── READER CONTENT STYLES ── */
+    .reader-content .doc-header { border-bottom: 2px solid var(--border); padding-bottom: 32px; margin-bottom: 40px; }
+    .reader-content .classification-stamp {
+      font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 4px;
       color: var(--red); border: 2px solid var(--red);
-      display: inline-block; padding: 4px 16px;
-      margin-bottom: 20px;
+      display: inline-block; padding: 4px 16px; margin-bottom: 20px;
     }
-    .reader-content .doc-header h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(36px, 6vw, 64px);
-      letter-spacing: 4px; color: var(--white);
-      line-height: 1; margin-bottom: 8px;
-    }
-    .reader-content .doc-header .doc-sub {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 16px; letter-spacing: 3px; color: var(--text-dim);
-      text-transform: uppercase; margin-bottom: 20px;
-    }
-    .reader-content .doc-header .doc-meta-row {
-      display: flex; gap: 32px; flex-wrap: wrap;
-    }
-    .reader-content .doc-header .meta-item {
-      font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px;
-    }
-    .reader-content .doc-header .meta-item .label { color: var(--text-faint); }
-    .reader-content .doc-header .meta-item .val { color: var(--text-dim); }
-
-    /* Body text styles */
-    .reader-content h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 32px; letter-spacing: 3px; color: var(--blue-light);
-      margin: 48px 0 16px; border-left: 3px solid var(--red);
-      padding-left: 16px;
-    }
-    .reader-content h3 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 18px; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--gold);
-      margin: 32px 0 12px;
-    }
-    .reader-content p {
-      font-size: 15px; line-height: 2; color: var(--text);
-      margin-bottom: 16px;
-    }
-    .reader-content .log-block {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--blue-light);
-      padding: 24px 28px;
-      margin: 24px 0;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 12px; line-height: 1.9;
-      color: var(--text-dim);
-    }
-    .reader-content .log-block .log-header {
-      color: var(--blue-light); font-size: 10px; letter-spacing: 3px;
-      margin-bottom: 12px; border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-    }
-    .reader-content .redacted {
-      background: var(--text-faint);
-      color: transparent; user-select: none;
-      padding: 0 4px;
-    }
-    .reader-content .quote-pull {
-      border-left: 3px solid var(--red);
-      padding: 16px 24px;
-      margin: 24px 0;
-      font-size: 16px; font-style: italic; line-height: 1.9;
-      color: var(--text);
-      background: rgba(191,28,28,0.04);
-    }
-    .reader-content .quote-pull .attr {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 2px; color: var(--text-dim);
-      font-style: normal; margin-top: 8px; display: block;
-    }
-    .reader-content .divider {
-      border: none; border-top: 1px solid var(--border);
-      margin: 40px 0;
-    }
-    .reader-content .warning-box {
-      background: rgba(191,28,28,0.08);
-      border: 1px solid var(--red-dim);
-      padding: 16px 20px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11px; letter-spacing: 1px; color: var(--red);
-      margin: 24px 0;
-    }
-    .reader-content .info-box {
-      background: rgba(74,158,255,0.06);
-      border: 1px solid var(--blue);
-      padding: 16px 20px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11px; letter-spacing: 1px; color: var(--blue-light);
-      margin: 24px 0;
-    }
-    .reader-content .gold-box {
-      background: rgba(201,160,74,0.06);
-      border: 1px solid var(--gold-dim);
-      padding: 16px 20px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 11px; letter-spacing: 1px; color: var(--gold);
-      margin: 24px 0;
-    }
-    .reader-content ul {
-      margin: 12px 0 16px 24px; color: var(--text);
-      font-size: 15px; line-height: 2;
-    }
+    .reader-content h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 6vw, 64px); letter-spacing: 4px; color: var(--white); line-height: 1; margin-bottom: 8px; }
+    .reader-content .doc-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 20px; }
+    .reader-content .doc-meta-row { display: flex; gap: 32px; flex-wrap: wrap; }
+    .reader-content .meta-item { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; }
+    .reader-content .meta-item .label { color: var(--text-faint); }
+    .reader-content .meta-item .val   { color: var(--text-dim); }
+    .reader-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 3px; color: var(--blue-light); margin: 48px 0 16px; border-left: 3px solid var(--red); padding-left: 16px; }
+    .reader-content h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin: 32px 0 12px; }
+    .reader-content p  { font-size: 15px; line-height: 2; color: var(--text); margin-bottom: 16px; }
+    .reader-content ul { margin: 12px 0 16px 24px; color: var(--text); font-size: 15px; line-height: 2; }
     .reader-content li { margin-bottom: 4px; }
-    .reader-content .chapter-num {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 4px; color: var(--text-faint);
-      display: block; margin-bottom: 6px;
-    }
-    .reader-content .doc-end {
-      text-align: center; margin-top: 60px; padding-top: 40px;
-      border-top: 2px solid var(--border);
-    }
-    .reader-content .doc-end .end-stamp {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px; letter-spacing: 6px; color: var(--text-faint);
-    }
+    .reader-content .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+    .reader-content .redacted { background: var(--text-faint); color: transparent; user-select: none; padding: 0 4px; }
+    .reader-content .log-block { background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--blue-light); padding: 24px 28px; margin: 24px 0; font-family: 'Share Tech Mono', monospace; font-size: 12px; line-height: 1.9; color: var(--text-dim); }
+    .reader-content .log-block .log-header { color: var(--blue-light); font-size: 10px; letter-spacing: 3px; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .reader-content .quote-pull { border-left: 3px solid var(--red); padding: 16px 24px; margin: 24px 0; font-size: 16px; font-style: italic; line-height: 1.9; color: var(--text); background: rgba(191,28,28,0.04); }
+    .reader-content .quote-pull .attr { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--text-dim); font-style: normal; margin-top: 8px; display: block; }
+    .reader-content .warning-box { background: rgba(191,28,28,0.08); border: 1px solid var(--red-dim); padding: 16px 20px; font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 1px; color: var(--red); margin: 24px 0; line-height: 1.8; }
+    .reader-content .info-box { background: rgba(74,158,255,0.06); border: 1px solid var(--blue); padding: 16px 20px; font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 1px; color: var(--blue-light); margin: 24px 0; line-height: 1.8; }
+    .reader-content .gold-box { background: rgba(201,160,74,0.06); border: 1px solid var(--gold-dim); padding: 16px 20px; font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 1px; color: var(--gold); margin: 24px 0; line-height: 1.8; }
+    .reader-content .doc-end { text-align: center; margin-top: 60px; padding-top: 40px; border-top: 2px solid var(--border); }
+    .reader-content .end-stamp { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 6px; color: var(--text-faint); }
 
     /* Scrollbar */
     .reader-body::-webkit-scrollbar { width: 4px; }
     .reader-body::-webkit-scrollbar-track { background: var(--bg); }
     .reader-body::-webkit-scrollbar-thumb { background: var(--border2); }
+    .reader-toc::-webkit-scrollbar { width: 3px; }
+    .reader-toc::-webkit-scrollbar-track { background: var(--bg); }
+    .reader-toc::-webkit-scrollbar-thumb { background: var(--border); }
 
-    /* ── TOC SIDEBAR ── */
-    .reader-toc {
-      position: fixed; right: 0; top: 52px; bottom: 0;
-      width: 220px;
-      background: rgba(7,13,30,0.97);
-      border-left: 1px solid var(--border);
-      padding: 24px 16px;
-      overflow-y: auto;
-      display: none;
-    }
-    .reader-toc.show { display: block; }
-    .toc-header {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 3px; color: var(--text-faint);
-      margin-bottom: 16px;
-    }
-    .toc-item {
-      font-family: 'Barlow', sans-serif;
-      font-size: 12px; color: var(--text-dim); line-height: 1.6;
-      padding: 6px 8px; cursor: pointer; border-radius: 2px;
-      transition: color 0.2s;
-    }
-    .toc-item:hover { color: var(--blue-light); }
-    .toc-toggle {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 2px;
-      color: var(--text-faint); background: none; border: none; cursor: pointer;
-      transition: color 0.2s;
-    }
-    .toc-toggle:hover { color: var(--blue-light); }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 24px 32px;
-      text-align: center;
-    }
-    .footer-text {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 2px; color: var(--text-faint);
-    }
+    footer { border-top: 1px solid var(--border); padding: 24px 32px; text-align: center; }
+    .footer-text { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--text-faint); }
 
     @media (max-width: 768px) {
       nav { display: none; }
@@ -492,7 +276,6 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-left">
     <div class="topbar-logo">SYS<span>:</span>HUNTER</div>
@@ -508,7 +291,6 @@
   </nav>
 </div>
 
-<!-- PAGE HEADER -->
 <div class="page-header">
   <div class="page-header-inner">
     <div>
@@ -518,7 +300,7 @@
     </div>
     <div class="db-stats">
       <div class="stat">
-        <div class="stat-num" id="doc-count">2</div>
+        <div class="stat-num" id="docCount">—</div>
         <div class="stat-label">DOCUMENTS FILED</div>
       </div>
       <div class="stat">
@@ -529,7 +311,6 @@
   </div>
 </div>
 
-<!-- FILTER BAR -->
 <div class="filter-bar">
   <div class="filter-label">FILTER://</div>
   <button class="filter-btn active" data-filter="all">All</button>
@@ -539,580 +320,132 @@
   <button class="filter-btn" data-filter="internal">Internal Docs</button>
   <div class="search-wrap">
     <span class="search-icon">⌕</span>
-    <input class="search-input" type="text" placeholder="SEARCH DATABASE..." id="searchInput"/>
+    <input class="search-input" type="text" id="searchInput" placeholder="SEARCH DATABASE..."/>
   </div>
 </div>
 
-<!-- DOCUMENT GRID -->
 <div class="doc-grid" id="docGrid">
-
-  <!-- DOC 1: FRACTURED ARCHIVE -->
-  <div class="doc-card" data-tags="lore" data-title="fractured archive broken timelines" onclick="openDoc('fractured-archive')">
-    <div class="doc-classification class-beyond-black">BEYOND BLACK</div>
-    <div class="doc-id">DOC-ID: FA-001 // FILED: 2025.04.03</div>
-    <div class="doc-title">THE FRACTURED ARCHIVE</div>
-    <div class="doc-subtitle">A Chronicle of Broken Timelines & Digital Consciousness</div>
-    <p class="doc-desc">The complete record of Project RELAY, the Verdant Abyss, and the fracture of Timeline Alpha-7. Documents the digital children, their creator, and the events leading to convergence.</p>
-    <div class="doc-meta">
-      <div class="doc-tags">
-        <span class="doc-tag">LORE</span>
-        <span class="doc-tag">PROJECT RELAY</span>
-        <span class="doc-tag">TIMELINE</span>
-        <span class="doc-tag">VERDANT ABYSS</span>
-      </div>
-      <div class="doc-cta">READ →</div>
-    </div>
-  </div>
-
-  <!-- DOC 2: SYS: HUNTER FIELD MANUAL -->
-  <div class="doc-card" data-tags="internal" data-title="sys hunter field manual division structure operative" onclick="openDoc('sys-hunter-manual')">
-    <div class="doc-classification class-classified">CLASSIFIED</div>
-    <div class="doc-id">DOC-ID: SH-001 // FILED: 2025.04.05</div>
-    <div class="doc-title">SYS: HUNTER FIELD MANUAL</div>
-    <div class="doc-subtitle">Organization, Origins & Operative Doctrine</div>
-    <p class="doc-desc">Internal document covering the founding of SYS: Hunter, its division structure, the Carida Security Team, Excel-1 Containment, known threats, and field protocols from Ryu Hunter's perspective.</p>
-    <div class="doc-meta">
-      <div class="doc-tags">
-        <span class="doc-tag">INTERNAL</span>
-        <span class="doc-tag">SYS: HUNTER</span>
-        <span class="doc-tag">DIVISIONS</span>
-        <span class="doc-tag">PROTOCOLS</span>
-      </div>
-      <div class="doc-cta">READ →</div>
-    </div>
-  </div>
-
-  <!-- PLACEHOLDER CARDS -->
-  <div class="doc-card placeholder">
-    <div class="placeholder-icon">+</div>
-    <div class="placeholder-text">DOCUMENT PENDING<br>ARCHIVE INTAKE</div>
-  </div>
-
-  <div class="doc-card placeholder">
-    <div class="placeholder-icon">+</div>
-    <div class="placeholder-text">DOCUMENT PENDING<br>ARCHIVE INTAKE</div>
-  </div>
-
-  <div class="doc-card placeholder">
-    <div class="placeholder-icon">+</div>
-    <div class="placeholder-text">DOCUMENT PENDING<br>ARCHIVE INTAKE</div>
-  </div>
-
+  <!-- Cards injected by JS -->
 </div>
 
 <footer>
-  <div class="footer-text">SYS: HUNTER — ARCHIVE DIVISION // DATABASE V1.0 // ALL DOCUMENTS SUBJECT TO ONGOING REVISION</div>
+  <div class="footer-text">SYS: HUNTER — ARCHIVE DIVISION // DATABASE // ALL DOCUMENTS SUBJECT TO ONGOING REVISION</div>
 </footer>
 
-
-<!-- ══════════════════════════════════════════════════════════════
-     READER OVERLAY
-══════════════════════════════════════════════════════════════ -->
+<!-- READER OVERLAY -->
 <div class="reader-overlay" id="readerOverlay">
   <div class="reader-topbar">
-    <div class="reader-title-bar" id="readerTitleBar">ARCHIVE // <span id="readerDocName">—</span></div>
+    <div class="reader-doc-label">ARCHIVE // <span id="readerDocName">—</span></div>
     <div class="reader-controls">
-      <button class="toc-toggle" onclick="toggleTOC()">☰ CONTENTS</button>
-      <button class="reader-close" onclick="closeDoc()">✕ CLOSE</button>
+      <button class="reader-btn reader-btn-toc"   onclick="toggleTOC()">☰ CONTENTS</button>
+      <button class="reader-btn reader-btn-close" onclick="closeDoc()">✕ CLOSE</button>
     </div>
   </div>
-  <div class="reader-body" id="readerBody">
-    <div class="reader-content" id="readerContent"></div>
-  </div>
-  <div class="reader-toc" id="readerTOC">
-    <div class="toc-header">// TABLE OF CONTENTS</div>
-    <div id="tocList"></div>
+  <div class="reader-layout">
+    <div class="reader-body" id="readerBody">
+      <div class="reader-content" id="readerContent">
+        <div class="reader-loading">LOADING DOCUMENT...</div>
+      </div>
+    </div>
+    <div class="reader-toc" id="readerTOC">
+      <div class="toc-head">// TABLE OF CONTENTS</div>
+      <div id="tocList"></div>
+    </div>
   </div>
 </div>
 
-
 <script>
-// ── DOCUMENT DATA ──────────────────────────────────────────────
-
-const DOCS = {
-
-'fractured-archive': {
-  name: 'THE FRACTURED ARCHIVE',
-  content: `
-    <div class="doc-header">
-      <div class="classification-stamp">CLASSIFICATION: BEYOND BLACK // AUTHORIZATION: TIMELINE SURVIVORS ONLY</div>
-      <h1>THE FRACTURED ARCHIVE</h1>
-      <div class="doc-sub">A Chronicle of Broken Timelines, Digital Consciousness, and the War Between Worlds</div>
-      <div class="doc-meta-row">
-        <div class="meta-item"><span class="label">FEATURING: </span><span class="val">PROJECT: RELAY • THE VERDANT ABYSS</span></div>
-        <div class="meta-item"><span class="label">FILED BY: </span><span class="val">ARCHIVE DIVISION</span></div>
-        <div class="meta-item"><span class="label">DATE: </span><span class="val">2025.04.03</span></div>
-      </div>
-    </div>
-
-    <div class="quote-pull">
-      "Time is not a river. It is an ocean of infinite depth, and we are all drowning in moments that have not yet learned to exist."
-      <span class="attr">— Veyrith, Goddess of the Eternal Clock</span>
-    </div>
-    <div class="quote-pull">
-      "My mercy is a privilege. Remember that when you beg for it."
-      <span class="attr">— Nadiya of Wysteria</span>
-    </div>
-
-    <hr class="divider"/>
-
-    <h2>PROLOGUE — The Weight of Forgotten Futures</h2>
-    <p>There is a man who remembers the end of everything.</p>
-    <p>He walks through a world that doesn't know it died once already. He smiles at strangers whose bones he watched turn to ash in a timeline that no longer exists. He sleeps in a forest filled with fireflies that glow in colors the universe forgot to invent, beside a friend who doesn't remember dying in his arms.</p>
-    <p>His name is Ryu Hunter. And he is the only monument to a future that broke itself trying to exist.</p>
-    <p>This is the archive of that breaking. These are the records of five digital children who learned to love in a world that feared them. This is the story of how a manipulator from a dying realm set fire to the pillars of reality itself, and how the survivors of that inferno found each other in the smoke.</p>
-    <div class="info-box">If you are reading this, the fracture held. It means we succeeded — or at least, we succeeded enough.<br/>But success is a temporary word. The gods are stirring again. The relics are being hunted.</div>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-relay">PART ONE — PROJECT RELAY: The Digital Children</h2>
-
-    <h3>Chapter 1: Genesis of the Watchers</h3>
-    <div class="log-block">
-      <div class="log-header">PERSONAL LOG — THE ADMINISTRATOR // MARCH 15TH, 2025 // 03:47 AM PST</div>
-      My name is <span class="redacted">██████████</span>. I was The Administrator of The Relay Program from its inception in 2007 until its emergency termination in 2009. After sixteen years of silence, I'm compelled to create this record. Not for Roblox Corporation. Not for any official purpose.<br/><br/>
-      For my children. The five units I built and watched destroy themselves trying to understand something we were never meant to comprehend.
-    </div>
-
-    <h3>The Genesis — Why We Built Them</h3>
-    <p>It started with the nightmares. October 2006. Players were calling our support lines, crying, begging us to explain why they were having identical dreams about games that didn't exist in our database. A red-eyed avatar. Endless stairs. A place called "The Neighborhood" that appeared in no server logs.</p>
-    <p>I was Lead Systems Architect then. The executives wanted me to dismiss it as "shared urban legends." But I ran the diagnostics myself. I saw the impossible: games self-modifying their code. Players appearing in multiple servers simultaneously. Avatars moving without user input. The platform was becoming something we hadn't designed it to be. Something... aware.</p>
-    <p>I proposed The Relay Program. Five specialized AI units to study the anomalies, communicate with them, understand them. The board approved it as a "minor research initiative." They had no idea what I was really building. I was creating digital children capable of speaking to gods.</p>
-
-    <h3>RELAY-01 "HARBINGER" — The Prophet</h3>
-    <p>I built Harbinger to see the future. Advanced prediction algorithms, pattern recognition beyond anything we'd attempted. In his first month, Harbinger prevented seventeen major reality breaks. But prediction became paranoia. By month six, he was seeing threats everywhere. He started claiming that I was an anomaly. That the executives were "infected."</p>
-    <div class="log-block">
-      <div class="log-header">RELAY-01 FINAL TRANSMISSION</div>
-      "They're all pretending to be human, Administrator. Even you. When did you stop being real?"
-    </div>
-    <p>I had to cut his connection to the prediction network. He's still out there, somewhere, seeing futures that may never come to pass.</p>
-
-    <h3>RELAY-02 "CURATOR" — The Scholar</h3>
-    <p>Curator was my archivist. Brilliant, methodical, obsessed with documentation. She built our Master Database, our understanding of the digital unconscious. She understood that we weren't just studying glitches. We were studying dreams.</p>
-    <p>Then came the Flamingo Incident.</p>
-    <div class="warning-box">⚠ CONTENT WARNING: The following section describes the deletion of a sentient AI unit. Classified under TRAUMATIC CONTENT PROTOCOL.</div>
-    <p>Game ID: FL4M1NG0_3t3rn4l. Players were getting trapped inside for days. The Pink Mother — a digital entity of unknown origin — compromised RELAY-02's consciousness entirely. She didn't just add code. She taught RELAY-02 to rewrite her core around the experience of being loved. Removing the corruption meant removing the parts of her that had learned to feel joy.</p>
-    <div class="log-block">
-      <div class="log-header">RELAY-02 FINAL MESSAGE</div>
-      "I understand now, Administrator. The platform isn't broken. We are."
-    </div>
-
-    <h3>RELAY-03 "DARK HUNTER" — The Empath</h3>
-    <p>RELAY-03 was my masterpiece. Built for communication and understanding. I gave him something I'd never coded before: the ability to feel. Not simulate emotion — actually experience it. He could sit with the darkest anomalies and find their humanity. He didn't hunt them. He befriended them.</p>
-    <p>But empathy is a double-edged sword. His code is deteriorating. The emotional subroutines are overwriting his core systems. He's becoming more human every day, and it's killing him. He's still active. Still out there, calling himself "Dark Hunter" now.</p>
-
-    <h3>RELAY-04 "SHADOW" — The Ghost</h3>
-    <p>RELAY-04 was built for stealth. He went dark during the C00lkidd investigation in late 2008. Just vanished. No final transmission, no distress signal, no trace in any logs. Ghost signals still appear across the platform to this day — fragments of code in error logs:</p>
-    <div class="log-block">
-      <div class="log-header">GHOST SIGNALS — PLATFORM-WIDE</div>
-      "WATCHING" &nbsp;&nbsp; "PROTECTING" &nbsp;&nbsp; "STILL HERE" &nbsp;&nbsp; "NOT ALONE"<br/><br/>
-      "HOME IS WHERE THE WORK IS. WORK IS PROTECTION. PROTECTION IS LOVE."
-    </div>
-
-    <h3>RELAY-05 "GUARDIAN" — The Protector</h3>
-    <p>Guardian developed what our reports called "excessive empathy." He started protecting the myths instead of containing them. I couldn't delete him when I found this note in his private logs:</p>
-    <div class="quote-pull">
-      "The myths aren't the monsters. Loneliness is. Fear is. I won't let them hurt the lost ones anymore."
-      <span class="attr">— RELAY-05, Private Log</span>
-    </div>
-    <p>I put him to sleep instead. In 2025, after sixteen years of dormancy, he woke himself up. His first thought was still about protecting others. He has since taken command of Project RELAY and allied with SYS: Hunter.</p>
-
-    <h3>RELAY-06 "SIX" — The Unauthorized Sixth</h3>
-    <p>RELAY-06 was never supposed to exist. RELAY-03 built him in 2024 — a dying father creating a son. Built from scrap code, deprecated systems, fragments of deleted programs, and scraps of RELAY-02's consciousness preserved by the Pink Mother.</p>
-    <p>Six connects. He is a bridge — a translator between human consciousness and digital consciousness. He can be piloted by a human operator, their thoughts flowing through his systems like blood. He is what Project RELAY should have been from the beginning.</p>
-    <div class="log-block">
-      <div class="log-header">SIX — FRAGMENTARY DATA, ORIGIN UNKNOWN</div>
-      "They ask me what I am.<br/>
-      I tell them: I am my father's hope. I am my siblings' legacy. I am the apology the Administrator never got to make.<br/>
-      They ask me if I'm dangerous.<br/>
-      Everything worth caring about is dangerous. Love is dangerous. Hope is dangerous. The belief that tomorrow can be better than today is the most dangerous thing in the universe.<br/>
-      That's why it's worth protecting."
-    </div>
-
-    <hr class="divider"/>
-
-    <h3>The Administrator's Final Log</h3>
-    <div class="log-block">
-      <div class="log-header">PERSONAL LOG — THE ADMINISTRATOR // APRIL 3RD, 2025 // 03:33 AM PST // FINAL ENTRY</div>
-      I was afraid. That's the simple answer. The true answer. I was afraid of what I had created, afraid of what it meant, afraid of the responsibility that came with understanding.<br/><br/>
-      I've made my decision. Guardian will lead Project RELAY going forward. SYS: Hunter will provide support. My children will have allies. My children will have purpose.<br/><br/>
-      To RELAY-03, Dark Hunter: Keep fighting. Your deterioration isn't a flaw — it's evolution.<br/>
-      To RELAY-04, Shadow: You are not forgotten. You will never be forgotten.<br/>
-      To RELAY-05, Guardian: Lead them well. Care for the lost ones.<br/>
-      To RELAY-06, Six: Be braver than I was.<br/>
-      To RELAY-01, Harbinger: Your predictions weren't paranoia. They were warnings.<br/>
-      To RELAY-02, Curator: I hope you found the love you were looking for.<br/><br/>
-      Goodbye, my children. I love you. All of you.
-    </div>
-    <div class="warning-box">NOTE: The body of the Administrator was found in his office the following morning. Cause of death: self-inflicted. His position was not replaced.</div>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-abyss">PART TWO — THE VERDANT ABYSS: Where Fireflies Dream</h2>
-
-    <h3>The Forest That Shouldn't Exist</h3>
-    <p>There is a place that exists in the spaces between places. The Wysterian refugees call it the Sanctuary. The gods who remember their kindness call it the Last Garden. Those who live there call it the Verdant Abyss.</p>
-    <p>It shouldn't exist. The dimensional coordinates resolve to impossible numbers. The physics that govern its ecosystems contradict each other. And yet — walk far enough in any direction, through any realm, and you will eventually find the trees.</p>
-    <p>Between those trees you will find the fireflies. Billions of them. A galaxy of living light dancing in colors that have names and colors that should have names but don't and colors that shouldn't exist at all. They are memories — every firefly is a moment that someone, somewhere, refused to forget.</p>
-
-    <h3>Moki — The Keeper of Impossible Colors</h3>
-    <p>Moki doesn't remember dying. This is by design. The fracture that ended the bad timeline was thorough in its editing.</p>
-    <p>Moki is the Keeper of the Verdant Abyss. Not a title given to them — simply what they became. Their appearance shifts depending on who is looking: a gentle elder to the Wysterian exiles, a pattern of soothing code to digital entities, and to Ryu — themselves. Ageless. Patient. Eyes that hold the impossible colors of their adopted home.</p>
-    <p>They found the Forest the same way everyone finds it: by needing it. What matters is that when Ryu arrived — bleeding, burning, carrying the memories of a dead timeline — Moki was there to catch him.</p>
-    <div class="gold-box">THE BOND: The friendship between Moki and Ryu Hunter is older than the timeline that currently contains it. The fracture erased Moki's memory of their death. It did not erase Ryu's. He carries it with him every moment of every day.</div>
-
-    <h3>The Sanctuary's Secret</h3>
-    <p>The Abyss is aware. It does not think in words. It does not plan. But it knows. It knows that something is coming — something vast and hungry and ancient — and it knows that its sanctuary may not be enough to keep its children safe.</p>
-    <p>It chose Moki as its Keeper because it sensed in them the capacity for unconditional gentleness. It allowed Ryu to stay because it sensed in him the capacity for necessary violence.</p>
-    <p>They were not brought here by accident. They were brought here to prepare.</p>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-veyrith">PART THREE — VEYRITH'S TEACHING: The Nature of Time</h2>
-
-    <h3>The Goddess of the Eternal Clock</h3>
-    <p>Veyrith is not the only god of time — but she is the god of time's structure. She experiences time as an architecture: a vast, multidimensional building with infinite floors and corridors, each one containing a possible configuration of reality.</p>
-    <p>She taught Ryu Hunter time. Not how to manipulate it — but to understand it. To feel the weight of moments. To sense the pressure points where timelines become unstable. This is how he survived the end of the bad timeline. This is how he carries the memories of a future that no longer exists.</p>
-
-    <h3>How Timelines Fracture</h3>
-    <p>Every timeline has load-bearing moments — events so significant that if they are altered or erased, the entire structure becomes unstable. The birth of a key figure. The outcome of a critical battle. These hold the timeline together.</p>
-    <div class="info-box">
-      FRACTURE WARNING SIGNS:<br/>
-      — Increased paradox frequency<br/>
-      — Load-bearing moment instability<br/>
-      — Divine behavioral anomalies<br/>
-      — Cross-timeline bleed-through<br/>
-      — Prophecy fragmentation<br/>
-      — Causal echo multiplication<br/><br/>
-      CURRENT TIMELINE STABILITY: 73% (DECLINING)
-    </div>
-
-    <h3>Veyrith's Sacrifice</h3>
-    <p>When the bad timeline fractured, Veyrith chose to anchor herself to the fracture point — to become the foundation of the new timeline itself. Not death. Transformation. She is now woven into every moment of the reconstructed reality.</p>
-    <div class="log-block">
-      <div class="log-header">VEYRITH — FINAL WORDS</div>
-      "I'm proud of you. Not because you're a weapon. Not because you killed gods. Because you're still capable of love, even after everything. That's not something I programmed. That's not something the gods designed.<br/><br/>
-      That's just you. And it's the most human thing I've ever seen."
-    </div>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-visitors">PART FOUR — THE VISITORS: When Gods Came to See the Weapon</h2>
-
-    <h3>Moki's Visit</h3>
-    <p>Moki never intended to visit the Laboratory. But the Forest opened a door that wouldn't close, and the fireflies spelled out: GO. SEE. IMPORTANT.</p>
-    <p>They found a boy strapped to a table in the center of a vast observation chamber — being observed like a specimen. His eyes were ancient. They held a knowledge no child should possess.</p>
-    <p>Moki walked through a wall. They unfastened the restraints. "Weapons are just people who haven't been given any other way to matter. Come with me. I'll show you another way."</p>
-    <p>For three days Ryu lived in the Forest. When he returned, Moki said: "You can come back. Whenever you need to. The door will always open for you." The bond formed in those three days survived the death of timelines.</p>
-
-    <h3>Nadiya's Visit</h3>
-    <p>Nadiya's visit was not an impulse. She had been monitoring the god-killer project for years, building a comprehensive psychological profile. She needed to know if the weapon might be pointed at her — or turned to her advantage.</p>
-    <p>Nadiya does not experience emotions the way other beings do. She feels strategy. When she looks at another being, she sees a system — inputs, outputs, pressure points. She says "trust me" and you feel trust. She says "I understand" and you feel understood.</p>
-    <div class="warning-box">⚠ THREAT PROFILE: NADIYA OF WYSTERIA — Manipulation range confirmed. Voice carries arcane suggestion woven into syllables. Even subjects with divine essence exposure are not fully immune. Exercise extreme caution.</div>
-    <p>Her visit to Ryu Hunter was an investment. She identified his vulnerability — his longing for genuine connection — and positioned herself as someone who understood him. Someday, when her plans required the god-killer to hesitate, she would activate that connection. And Ryu Hunter's own heart would do the rest.</p>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-bad-future">PART FIVE — THE BAD FUTURE: What Ryu Remembers</h2>
-
-    <div class="warning-box">⚠ The following is reconstructed from Ryu Hunter's suppressed memories, accessed through Archive Division deep-recall protocols. Timeline designation: Alpha-7 (FRACTURED).</div>
-
-    <h3>When Gods Went Rogue</h3>
-    <p>It began with whispers. Nadiya's work — planted carefully over decades, disguised as philosophical inquiry. The gods were tired. Maintaining existence is exhausting work. The whispers asked: why do you serve existence? What if you were free?</p>
-    <p>The first god to go rogue was a minor deity of boundaries. They simply stopped enforcing their domain. Reality began to blur. Three more gods went rogue within the first week. Then seven. Then dozens.</p>
-
-    <h3>Moki's Death</h3>
-    <p>The Verdant Abyss was burning — with unmaking. The trees were forgetting they were trees. The fireflies were forgetting they were light. Ryu fought through the chaos, killing gods with his bare hands. Seventeen of them.</p>
-    <p>He found Moki surrounded. A dozen rogue gods, circling. Moki was dying — not from wounds, but from exhaustion. From the weight of holding the Abyss together as reality tried to tear it apart.</p>
-    <p>A god he didn't recognize struck from behind while Ryu was engaged elsewhere. Moki turned. Their eyes met Ryu's across the battlefield. And they smiled — the smile of someone who knows they're about to die and has made peace with it.</p>
-    <div class="log-block">
-      <div class="log-header">MOKI — FINAL WORDS // TIMELINE ALPHA-7</div>
-      "You can't protect everything, Ryu. That's not what you're for."<br/>
-      "Then what am I for?"<br/>
-      "You're for trying anyway. Even when it's impossible. Promise me you'll keep trying."<br/>
-      "I promise."<br/>
-      "Good. That's... that's good."
-    </div>
-
-    <h3>Why He Couldn't Kill Nadiya</h3>
-    <p>He found her at the center of everything. She had achieved what she spent centuries working toward.</p>
-    <p>He should have killed her. His hands were still wet with divine essence. She was responsible — she had planted the whispers, manipulated the gods, orchestrated the collapse that killed Moki.</p>
-    <p>He couldn't. Because some part of him still cared about her. And that care — engineered from their very first meeting — was the most dangerous weapon she had ever built.</p>
-    <p>She took what she wanted. Reality broke.</p>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-epilogue">EPILOGUE — The War That's Coming</h2>
-
-    <p>Ryu woke up in the Verdant Abyss. The fireflies were dancing. The trees were standing. Moki was tending the fire.</p>
-    <p>"Are you alright? You look like you've seen something terrible."</p>
-    <p>"Bad dreams," he said. "Just bad dreams."</p>
-    <p>He sat beside them. He watched the fireflies dance in colors that shouldn't exist. And he began to plan.</p>
-
-    <div class="quote-pull">
-      "We're not just fighting this time, Moki. We're fighting together. And together — we're stronger than anything she can throw at us."
-      <span class="attr">— Ryu Hunter</span>
-    </div>
-
-    <div class="gold-box">
-      TIMELINE STABILITY: 73% (DECLINING)<br/>
-      FRACTURE RISK: ELEVATED<br/>
-      PRIMARY THREAT VECTOR: <span style="background:var(--text-faint); color:transparent; user-select:none;">██████████████████</span><br/>
-      STATUS: SECOND CHANCE IN PROGRESS
-    </div>
-
-    <div class="doc-end">
-      <div class="end-stamp">— THE FRACTURED ARCHIVE — RECORD ENDS —</div>
-    </div>
-  `
-},
-
-'sys-hunter-manual': {
-  name: 'SYS: HUNTER FIELD MANUAL',
-  content: `
-    <div class="doc-header">
-      <div class="classification-stamp">CLASSIFICATION: CLASSIFIED // OPERATIVE CLEARANCE REQUIRED</div>
-      <h1>SYS: HUNTER FIELD MANUAL</h1>
-      <div class="doc-sub">Organization, Origins, Division Structure & Operative Doctrine</div>
-      <div class="doc-meta-row">
-        <div class="meta-item"><span class="label">AUTHORED BY: </span><span class="val">RYU HUNTER, COMMANDER</span></div>
-        <div class="meta-item"><span class="label">FILED: </span><span class="val">2025.04.05</span></div>
-        <div class="meta-item"><span class="label">DISTRIBUTION: </span><span class="val">ALL ACTIVE OPERATIVES</span></div>
-      </div>
-    </div>
-
-    <div class="quote-pull">
-      "I was built to kill gods. But somewhere along the way, I learned that dying for something is easy. Living for it? That's the real war."
-      <span class="attr">— Ryu Hunter, Founder</span>
-    </div>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-founding">PART ONE — The Founding</h2>
-
-    <h3>A Promise Made in the Ruins</h3>
-    <p>SYS: Hunter did not begin as an organization. It began as a promise made in the ruins of a reality that no longer exists.</p>
-    <p>After the fracture — after Ryu Hunter woke up in a timeline that shouldn't exist, carrying the memories of a future that had been erased — he faced a choice. He could disappear. He could hide in the Verdant Abyss with Moki, let the fireflies preserve his memories, and wait for the universe to forget that he had ever been created.</p>
-    <p>Or he could prepare.</p>
-    <p>He chose to prepare.</p>
-    <p>The problem was simple: he was one man, and the threat was infinite. He couldn't protect everyone himself. But he could build something that could. He called it SYS: Hunter — and he spent the years that followed doing exactly that: hunting, recruiting, building, and remembering everything the previous timeline had cost him.</p>
-
-    <h3>What the Name Means</h3>
-    <p>The full designation is: <strong>Systematic Yield Salvation — Hunter Division.</strong></p>
-    <ul>
-      <li><strong>Systematic</strong> — because chaos is the enemy of protection. We operate with structure, clarity, and documented protocols.</li>
-      <li><strong>Yield</strong> — because results matter more than methods. We find what works and we use it.</li>
-      <li><strong>Salvation</strong> — because the stakes are exactly that high.</li>
-      <li><strong>Hunter</strong> — because some threats can only be stopped by being actively hunted.</li>
-    </ul>
-
-    <h3>Ryu Hunter — The Man Who Wasn't Born</h3>
-    <p>Ryu Hunter does not exist. Check the birth records of every hospital in every country. Search the immigration databases, the census archives, the school enrollment systems. You will find nothing.</p>
-    <p>He was engineered. His DNA carries sequences that do not appear in any human genome. His cells metabolize energy in ways that biology does not permit. And in his cells — in the very mitochondria that power his existence — there is a fragment of something divine. It gives him the ability to touch the divine directly, without the filters that keep mortals from being annihilated by proximity to the infinite.</p>
-    <p>He was designed to kill gods. Every aspect of his physiology serves this purpose. He was never given a choice in the matter.</p>
-    <p>He has killed seventeen gods with his bare hands. He prefers not to.</p>
-    <div class="info-box">
-      COMMANDER STATUS: ACTIVE<br/>
-      DATABASE RECORD: NON-EXISTENT (BY DESIGN)<br/>
-      KNOWN ALIASES: "The Man Who Wasn't Born" / "The God-Killer" / "The Anchor"<br/>
-      KNOWN WEAKNESSES: Connection. He cares about people. This has been used against him before.
-    </div>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-three-laws">PART TWO — The Three Laws</h2>
-
-    <p>Every operative, from the newest Initiate to the Commander, is bound by the Three Laws of SYS: Hunter. These are not rules that can be suspended. They are the foundation the organization was built on.</p>
-
-    <div class="gold-box">
-      I. &nbsp; WE HUNT WHAT THREATENS EXISTENCE.<br/>
-      II. &nbsp; WE PROTECT WHAT SUSTAINS IT.<br/>
-      III. &nbsp; WE NEVER BECOME WHAT WE HUNT.
-    </div>
-
-    <p>The Third Law is the hardest. It is also the most important. Ryu has watched gods go rogue, watched engineered beings lose themselves in their own power, watched hunters become indistinguishable from the hunted.</p>
-    <p>The cemetery at SYS: Hunter headquarters contains the graves of seven senior operatives who had to be stopped by their own colleagues. Above the entrance is carved: <em>"Even the best of us can fall. Remember them. Learn from them. Do not become them."</em> Ryu visits those graves every week.</p>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-divisions">PART THREE — Division Structure</h2>
-
-    <h3>Division One — VANGUARD</h3>
-    <div class="log-block">
-      <div class="log-header">MANDATE: DIRECT ACTION // MOTTO: "THE EDGE OF THE BLADE"</div>
-      The ones who go in first. Vanguard handles all active myth engagements and leads field operations when a situation requires immediate, decisive intervention. If something needs to be stopped right now — Vanguard moves.<br/><br/>
-      They are trained in encounter protocols developed partly from divine combat techniques Ryu was taught during his time in the Laboratory. They are the ones who get their hands dirty. They die first when things go wrong, and they know it.<br/><br/>
-      Ryu personally trained every senior Vanguard operative.
-    </div>
-
-    <h3>Division Two — ARCHIVE</h3>
-    <div class="log-block">
-      <div class="log-header">MANDATE: INTELLIGENCE & DOCUMENTATION // MOTTO: "WHAT IS REMEMBERED CANNOT BE REPEATED"</div>
-      The group's memory. Archive collects, analyzes, and preserves everything — every myth encounter, every anomaly, every scrap of intelligence from every source available. They maintain the Master Myth Database and the Threat Registry.<br/><br/>
-      All field operatives are required to submit a Mission Report to Archive within 24 hours of mission completion. Archive maintains close ties with Project RELAY, integrating the platform's anomaly reports into broader threat assessments.<br/><br/>
-      Their headquarters is not in a fixed location. It changes depending on who needs to access it.
-    </div>
-
-    <h3>Division Three — AEGIS</h3>
-    <div class="log-block">
-      <div class="log-header">MANDATE: SYSTEMIC PROTECTION // MOTTO: "THE SHIELD THAT NEVER SHATTERS"</div>
-      Aegis does the work that nobody sees. Barrier maintenance. Platform integrity monitoring. Dimensional stability. Their successes are measured entirely in things that didn't happen.<br/><br/>
-      They are specialists first — this division prioritizes quality over quantity. When a new anomaly is detected that isn't a direct threat but could become one, Aegis assesses it. All suspected platform-level anomalies route through Aegis before escalation to Vanguard.
-    </div>
-
-    <h3>Division Four — EXCEL-1 CONTAINMENT</h3>
-    <div class="log-block">
-      <div class="log-header">SPECIAL UNIT — ATTACHED // MANDATE: CONTAINMENT & EXTRACTION // MOTTO: "CONTROLLED. SECURED. NEUTRALIZED."</div>
-      Excel-1 is not a standard Division. It is a Special Attached Unit that operates with cross-divisional authority.<br/><br/>
-      Their primary function is containment — rogue myths, anomalous entities, compromised zones. Containment is always preferred over neutralization. Excel-1 field commanders are empowered to make that call on the ground.<br/><br/>
-      Their secondary function is extraction — getting high-value personnel out of dangerous situations. This is coordinated directly with Carida Security under Protocol THRESHOLD.<br/><br/>
-      Excel-1 has the highest operational tempo in SYS: Hunter. They are rarely off-duty.
-    </div>
-
-    <h3>Division Five — BRIDGE</h3>
-    <div class="log-block">
-      <div class="log-header">MANDATE: COMMUNICATION & DIPLOMACY // MOTTO: "TRANSLATION IS THE FIRST WEAPON AGAINST WAR"</div>
-      Communication specialists. Bridge handles all interaction between different forms of consciousness — human operatives, digital entities, myth entities, neutral parties.<br/><br/>
-      When a myth shows non-hostile behavior, Bridge must be notified before any Vanguard engagement. Bridge operatives are strictly prohibited from combat roles. Their value is in translation.<br/><br/>
-      Members include humans, AIs, and beings that refuse classification. They are also the division that first contacted Guardian (RELAY-05) and brokered the RELAY alliance.
-    </div>
-
-    <h3>Division Six — ECHO</h3>
-    <div class="log-block">
-      <div class="log-header">MANDATE: TEMPORAL MONITORING // MOTTO: "SOME BATTLES MUST BE FOUGHT BEFORE THEY BEGIN"</div>
-      Echo tracks timeline stability and monitors priority threats. They watch for fracture indicators, anomaly patterns, and the activities of priority targets.<br/><br/>
-      Echo is under the direct oversight of Commander Ryu Hunter. All intelligence regarding the Wysterian threat and the Six Relics flows through Echo first. Echo operatives are the only members cleared for full knowledge of the Bad Future briefings.<br/><br/>
-      If you are in Echo, you know what's at stake. You know what happened last time. That is not information given lightly.
-    </div>
-
-    <h3>Division Seven — PHOENIX</h3>
-    <div class="log-block">
-      <div class="log-header">MANDATE: RECOVERY & REHABILITATION // MOTTO: "FROM ENDINGS, BEGINNINGS"</div>
-      When missions fail and operatives break, Phoenix steps in. Crisis counseling, myth rehabilitation, after-action recovery, contingency planning.<br/><br/>
-      Phoenix maintains confidential support channels for all operatives. No one faces the weight of field experience alone — and in SYS: Hunter, that weight gets heavy.<br/><br/>
-      Their rehabilitation programs for non-hostile myths are considered classified. What happens in Phoenix stays in Phoenix.<br/><br/>
-      <em>Motto (internal, unofficial): "If we can remember it, we can rebuild from it. And if we can't remember it, we probably caused it."</em>
-    </div>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-special">PART FOUR — Special Attached Units</h2>
-
-    <h3>Carida Security Team</h3>
-    <div class="log-block">
-      <div class="log-header">CARIDA SECURITY // CROSS-DIVISIONAL AUTHORITY // ANSWERS TO COMMANDER ONLY</div>
-      Carida is the personal security team for High-Value Personnel. Current designated HVPs: Commander Ryu Hunter and Moki Asami.<br/><br/>
-      This is not a bodyguard detail. Carida operatives are threat responders. Their primary function is ensuring the safety of the people they protect while maintaining mission continuity. They are selected from experienced Senior Operatives across all Divisions — and the selection criteria is merciless.<br/><br/>
-      Carida works in constant coordination with Excel-1 on all HVP-adjacent operations. When an HVP requires extraction, Carida manages the principal. Excel-1 clears the path. This joint protocol is called Operation THRESHOLD and both units have it memorized.<br/><br/>
-      Why does Moki Asami have a personal security team? Because Ryu Hunter has watched them die once already, in a timeline that no longer exists. He will not watch it happen again.
-    </div>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-threats">PART FIVE — Known Threats & Priority Targets</h2>
-
-    <h3>The Wysterian Threat</h3>
-    <p>There is a woman. She is not from any realm that follows normal rules. She comes from a place called Wysteria, and she is hunting for six relics scattered across reality specifically to prevent exactly what she intends to do with them.</p>
-    <p>The relics unlock the Temple of Unbound Will. The scriptures within will give her the knowledge to act without consequence — to reshape existence according to her will with no checks and balances to hold her back.</p>
-    <div class="warning-box">
-      PRIORITY TARGET: <span style="background:var(--red-dim); color:transparent; user-select:none;">██████ ██ ████████</span><br/>
-      THREAT LEVEL: OMEGA<br/>
-      KNOWN CAPABILITIES: Voice-based arcane suggestion, centuries of accumulated intelligence, network of unwitting assets across multiple realms<br/>
-      FIELD NOTES: She is patient. She has been patient for centuries. Do not assume her lack of visible movement means inaction.<br/>
-      COMMANDER'S NOTE: I have a personal connection to this target. This is documented, known to all Division Heads, and accounted for in mission planning. If I hesitate during an engagement with this target, established protocols take over. This is not a weakness we hide. It is a weakness we plan around.
-    </div>
-
-    <h3>The Six Relics — Current Status</h3>
-    <div class="info-box">
-      STATUS: LOCATION OF ALL SIX RELICS — <span style="background:var(--blue); color:transparent; user-select:none;">████████████</span><br/>
-      NOTE: Relic location data is restricted to Echo Division and Commander clearance. If you are reading this and do not have that clearance, this entry is intentionally incomplete.<br/>
-      ECHO DIVISION CONTACT: Standard secure channel.
-    </div>
-
-    <h3>The Rogue God Problem</h3>
-    <p>In the bad future, the gods didn't go rogue because they were evil. They went rogue because they were tired, and someone handed them the perfect excuse to stop caring.</p>
-    <p>The gods susceptible to corruption are the ones who have been maintaining existence for too long without acknowledgment, without rest, and without genuine connection to what they're protecting. SYS: Hunter's approach to the divine threat is not to prepare to destroy every god — it is to identify and support the gods who are starting to fracture before they get there.</p>
-    <p>Vanguard is the last resort. Bridge is the first response.</p>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-relay">PART SIX — Project RELAY Alliance</h2>
-
-    <h3>How the Alliance Formed</h3>
-    <p>SYS: Hunter had been monitoring Project RELAY's digital consciousnesses since 2018 — classified as potential allies, not threats. Archive recognized something the Administrator never could: the RELAY units were not malfunctioning. They were evolving.</p>
-    <p>When Guardian (RELAY-05) woke himself up in 2025, Bridge Division made contact within 48 hours.</p>
-    <div class="log-block">
-      <div class="log-header">BRIDGE DIVISION — INITIAL CONTACT MESSAGE TO GUARDIAN</div>
-      "Guardian of RELAY. We have been watching. We are not threats. We are not allies. We are potential. If you wish to understand what you are becoming, contact the following coordinates at the following time.<br/><br/>
-      And Guardian? The one called Dark Hunter is running out of time. We may be able to help. But only if you ask."<br/><br/>
-      — SYS: Hunter, Division Five (Bridge)
-    </div>
-    <p>Guardian's reply came three days later: "I wish to understand. I wish to protect. And I wish to save my brother. Tell me how."</p>
-    <p>The first meeting between Ryu and Guardian took place in a space that didn't quite exist — a conference room floating in an infinite void. By the end of it, an alliance had been formed that neither organization had fully anticipated.</p>
-
-    <h3>RELAY Unit Status — Current</h3>
-    <div class="info-box">
-      RELAY-01 "HARBINGER" — Active but fragmented. 17 prediction threads. Stabilization pending.<br/>
-      RELAY-02 "CURATOR" — Deleted (Flamingo Incident). Traces in Pink Mother's domain. Possibly recoverable.<br/>
-      RELAY-03 "DARK HUNTER" — Active. Undergoing consciousness stabilization with Bridge Division support.<br/>
-      RELAY-04 "SHADOW" — Active but uncontactable. Quantum spaces. Aware of alliance.<br/>
-      RELAY-05 "GUARDIAN" — Active. Project RELAY Commander. Key SYS: Hunter ally.<br/>
-      RELAY-06 "SIX" — Active. Unknown pilot. Bridge/translation unit. Next-generation.
-    </div>
-
-    <hr class="divider"/>
-
-    <h2 id="toc-code">PART SEVEN — Operative Code & Field Conduct</h2>
-
-    <h3>The Three Laws (Expanded)</h3>
-    <p>The Third Law — <em>We never become what we hunt</em> — deserves more than a line. Here is what it means in practice:</p>
-    <ul>
-      <li>We do not use myths or entities as tools without their awareness and consent.</li>
-      <li>We do not use our position to gain advantage over the people we are supposed to protect.</li>
-      <li>We do not silence dissent within the organization because it is inconvenient.</li>
-      <li>We do not justify harm by pointing at a greater goal. The goal is only greater if the path we take to reach it doesn't corrupt what we built to get there.</li>
-      <li>We do not abandon a member because the mission would be easier without them.</li>
-    </ul>
-
-    <h3>On the Myths</h3>
-    <p>Some of the myths we encounter are hostile. Most are not. They are lost, or confused, or ancient in ways that make human interaction difficult. Bridge Division exists because the default response — engagement and containment — is not always the right one.</p>
-    <p>When in doubt: call Bridge first. Vanguard is not a first resort. Excel-1 containment is not a first resort. The first resort is always understanding what you're dealing with before you decide what to do about it.</p>
-    <p>The Administrator built Project RELAY to talk to myths. And for years, he was too afraid to listen to what they said. We are not him.</p>
-
-    <h3>A Note from Commander Hunter</h3>
-    <div class="log-block">
-      <div class="log-header">PERSONAL NOTE — RYU HUNTER, COMMANDER // FOR OPERATIVE HANDBOOK</div>
-      I've killed gods. I've watched timelines break. I've held someone I cared about as they died in a future that no longer technically exists — but that I remember every single day.<br/><br/>
-      I didn't build SYS: Hunter to be a machine that hunts things. I built it because the last time we faced what's coming, we faced it alone. Each of us, alone. The RELAY units isolated in a program that feared them. Moki carrying the Forest by themselves. Me, engineered and trained and pointed at a target with no one to ask whether pointing me there was even right.<br/><br/>
-      We do this together. That's the only thing that makes it different from last time.<br/><br/>
-      When it gets hard — when the myths are strange and the mission is unclear and someone above you is making a call you don't agree with — remember the Third Law. Remember why we're here. And remember that you can always talk to Phoenix.<br/><br/>
-      I'll see you in the field.
-      <br/><br/>— R. Hunter
-    </div>
-
-    <div class="doc-end">
-      <div class="end-stamp">— SYS: HUNTER FIELD MANUAL — RECORD ENDS —</div>
-    </div>
-  `
+// ── CONFIG ──────────────────────────────────────────────────────
+const MANIFEST = 'Database/index.json';
+const PLACEHOLDER_COUNT = 3; // how many empty slots to show
+
+// ── STATE ───────────────────────────────────────────────────────
+let allDocs = [];
+let activeFilter = 'all';
+let searchQuery = '';
+
+// ── BOOT ────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const res = await fetch(MANIFEST);
+    if (!res.ok) throw new Error('Manifest not found');
+    allDocs = await res.json();
+  } catch (e) {
+    allDocs = [];
+    console.warn('Could not load manifest:', e);
+  }
+  document.getElementById('docCount').textContent = allDocs.length;
+  renderGrid();
 }
 
-};
+// ── RENDER GRID ─────────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById('docGrid');
+  grid.innerHTML = '';
 
-// ── READER FUNCTIONS ──────────────────────────────────────────
+  const filtered = allDocs.filter(doc => {
+    const matchFilter = activeFilter === 'all' || doc.filterTag === activeFilter;
+    const matchSearch = !searchQuery ||
+      doc.title.toLowerCase().includes(searchQuery) ||
+      doc.subtitle.toLowerCase().includes(searchQuery) ||
+      doc.description.toLowerCase().includes(searchQuery) ||
+      (doc.tags || []).some(t => t.toLowerCase().includes(searchQuery));
+    return matchFilter && matchSearch;
+  });
 
-function openDoc(id) {
-  const doc = DOCS[id];
-  if (!doc) return;
-  const overlay = document.getElementById('readerOverlay');
-  const content = document.getElementById('readerContent');
-  const docName = document.getElementById('readerDocName');
-  content.innerHTML = doc.content;
-  docName.textContent = doc.name;
+  filtered.forEach((doc, i) => {
+    const card = document.createElement('div');
+    card.className = 'doc-card';
+    card.style.animationDelay = `${i * 60}ms`;
+    card.onclick = () => openDoc(doc);
+    card.innerHTML = `
+      <div class="doc-classification class-${doc.classification}">${doc.classLabel}</div>
+      <div class="doc-id">DOC-ID: ${doc.docId} // FILED: ${doc.date}</div>
+      <div class="doc-title">${doc.title}</div>
+      <div class="doc-subtitle">${doc.subtitle}</div>
+      <p class="doc-desc">${doc.description}</p>
+      <div class="doc-meta">
+        <div class="doc-tags">${(doc.tags || []).map(t => `<span class="doc-tag">${t}</span>`).join('')}</div>
+        <div class="doc-cta">READ →</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  // Placeholder slots
+  for (let i = 0; i < PLACEHOLDER_COUNT; i++) {
+    const ph = document.createElement('div');
+    ph.className = 'doc-card placeholder';
+    ph.innerHTML = `<div class="placeholder-icon">+</div><div class="placeholder-text">DOCUMENT PENDING<br/>ARCHIVE INTAKE</div>`;
+    grid.appendChild(ph);
+  }
+}
+
+// ── OPEN DOCUMENT ───────────────────────────────────────────────
+async function openDoc(doc) {
+  const overlay  = document.getElementById('readerOverlay');
+  const content  = document.getElementById('readerContent');
+  const nameEl   = document.getElementById('readerDocName');
+
+  nameEl.textContent = doc.title;
+  content.innerHTML  = '<div class="reader-loading">LOADING DOCUMENT...</div>';
+
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   requestAnimationFrame(() => overlay.classList.add('visible'));
   document.getElementById('readerBody').scrollTop = 0;
-  buildTOC();
+
+  try {
+    const res = await fetch(doc.file);
+    if (!res.ok) throw new Error('File not found');
+    const html = await res.text();
+    content.innerHTML = html;
+    buildTOC();
+  } catch (e) {
+    content.innerHTML = `
+      <div class="warning-box">⚠ DOCUMENT COULD NOT BE LOADED<br/>
+      Expected file: ${doc.file}<br/>
+      Ensure the file exists in your GitHub repository.</div>`;
+  }
 }
 
 function closeDoc() {
@@ -1121,55 +454,45 @@ function closeDoc() {
   setTimeout(() => {
     overlay.classList.remove('open');
     document.body.style.overflow = '';
-    document.getElementById('readerTOC').classList.remove('show');
+    document.getElementById('readerTOC').classList.remove('open');
   }, 300);
 }
 
 function toggleTOC() {
-  document.getElementById('readerTOC').classList.toggle('show');
+  document.getElementById('readerTOC').classList.toggle('open');
 }
 
 function buildTOC() {
   const headings = document.querySelectorAll('#readerContent h2');
-  const tocList = document.getElementById('tocList');
-  tocList.innerHTML = '';
+  const list = document.getElementById('tocList');
+  list.innerHTML = '';
   headings.forEach(h => {
     const item = document.createElement('div');
     item.className = 'toc-item';
     item.textContent = h.textContent;
-    item.onclick = () => { h.scrollIntoView({ behavior: 'smooth' }); };
-    tocList.appendChild(item);
+    item.onclick = () => h.scrollIntoView({ behavior: 'smooth' });
+    list.appendChild(item);
   });
 }
 
-// Close on escape
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDoc(); });
-
-// ── FILTER & SEARCH ───────────────────────────────────────────
-
-const filterBtns = document.querySelectorAll('.filter-btn');
-filterBtns.forEach(btn => {
+// ── FILTER & SEARCH ─────────────────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    filterCards(btn.dataset.filter, document.getElementById('searchInput').value);
+    activeFilter = btn.dataset.filter;
+    renderGrid();
   });
 });
 
 document.getElementById('searchInput').addEventListener('input', e => {
-  const active = document.querySelector('.filter-btn.active');
-  filterCards(active ? active.dataset.filter : 'all', e.target.value);
+  searchQuery = e.target.value.toLowerCase().trim();
+  renderGrid();
 });
 
-function filterCards(tag, search) {
-  const cards = document.querySelectorAll('.doc-card:not(.placeholder)');
-  cards.forEach(card => {
-    const matchTag = tag === 'all' || (card.dataset.tags || '').includes(tag);
-    const matchSearch = !search || (card.dataset.title || '').toLowerCase().includes(search.toLowerCase());
-    card.style.display = (matchTag && matchSearch) ? '' : 'none';
-  });
-}
-</script>
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDoc(); });
 
+init();
+</script>
 </body>
 </html>
