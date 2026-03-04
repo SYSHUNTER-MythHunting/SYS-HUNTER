@@ -27,7 +27,7 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; }
 
     body {
       background: var(--bg);
@@ -679,7 +679,7 @@
     <nav>
       <a href="#mission">Mission</a>
       <a href="#divisions">Divisions</a>
-      <a href="#lore">Archive</a>
+      <a href="database.html">Database</a>
       <a href="#join">Enlist</a>
     </nav>
   </div>
@@ -886,7 +886,34 @@
     </div>
   </div>
 
+  <!-- DATABASE -->
+  <div style="border-top: 1px solid var(--border);" id="database">
+    <div style="max-width:1200px; margin: 0 auto; padding: 100px 32px; text-align: center;" class="reveal">
+      <div style="display:flex; justify-content:center;" class="section-label">// PUBLIC DATABASE</div>
+      <h2 class="section-title">MYTH DATABASE</h2>
+      <div style="
+        margin: 48px auto 0;
+        max-width: 600px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        padding: 60px 48px;
+        clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      ">
+        <div style="font-family:'Share Tech Mono',monospace; font-size:11px; letter-spacing:4px; color:var(--red); margin-bottom:24px;">// STATUS: COMING SOON</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; letter-spacing:4px; color:var(--text-faint); margin-bottom:20px; line-height:1;">UNDER CONSTRUCTION</div>
+        <p style="font-family:'Barlow',sans-serif; font-size:14px; line-height:1.9; color:var(--text-dim);">
+          The public myth database is being built out by Archive Division.<br>
+          Documented entities, anomalous games, and field reports will be listed here once the system is operational.
+        </p>
+        <div style="margin-top:36px;">
+          <a href="database.html" class="btn btn-primary" style="text-decoration:none; display:inline-block;">ENTER DATABASE →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- JOIN -->
+
   <div class="join-wrap">
     <div class="join reveal" id="join">
       <div>
