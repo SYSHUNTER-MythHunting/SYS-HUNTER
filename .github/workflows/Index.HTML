@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SYS: HUNTER — Systematic Yield Salvation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:        #03060F;
+      --bg2:       #070D1E;
+      --panel:     #0A1228;
+      --border:    #1A2E52;
+      --red:       #BF1C1C;
+      --red-glow:  #FF2222;
+      --blue:      #1A4A8A;
+      --blue-light:#4A9EFF;
+      --gold:      #C9A04A;
+      --text:      #C8D8EE;
+      --text-dim:  #5A7A9A;
+      --text-faint:#1E3050;
+      --white:     #EEF4FF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* ── SCANLINES OVERLAY ─────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NOISE TEXTURE ─────────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.5;
+    }
+
+    /* ── TOP BAR ───────────────────────────────────────────────── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 42px;
+      background: rgba(3,6,15,0.96);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+    }
+    .topbar-left {
+      display: flex; align-items: center; gap: 20px;
+    }
+    .topbar-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: var(--white);
+    }
+    .topbar-logo span { color: var(--red); }
+    .topbar-sep { width: 1px; height: 20px; background: var(--border); }
+    .topbar-class {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--red);
+      letter-spacing: 2px;
+      animation: blink 3s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    nav { display: flex; gap: 28px; }
+    nav a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--blue-light); }
+
+    /* ── HERO ──────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+      padding: 80px 32px 60px;
+    }
+
+    /* Animated grid background */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(26,74,138,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,74,138,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: grid-drift 40s linear infinite;
+    }
+    @keyframes grid-drift {
+      from { transform: translateY(0); }
+      to   { transform: translateY(60px); }
+    }
+
+    /* Radial vignette */
+    .hero-vignette {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 50%,
+        transparent 0%, rgba(3,6,15,0.7) 100%);
+      pointer-events: none;
+    }
+
+    /* Corner brackets */
+    .bracket {
+      position: absolute;
+      width: 60px; height: 60px;
+      border-color: var(--border);
+      border-style: solid;
+      opacity: 0.6;
+    }
+    .bracket-tl { top: 80px; left: 32px; border-width: 2px 0 0 2px; }
+    .bracket-tr { top: 80px; right: 32px; border-width: 2px 2px 0 0; }
+    .bracket-bl { bottom: 40px; left: 32px; border-width: 0 0 2px 2px; }
+    .bracket-br { bottom: 40px; right: 32px; border-width: 0 2px 2px 0; }
+
+    /* Vertical scan line */
+    .scanbeam {
+      position: absolute; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(180deg, transparent, rgba(74,158,255,0.3), transparent);
+      animation: scan-h 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes scan-h {
+      0%   { left: -5%; opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { left: 105%; opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 900px;
+      animation: hero-in 1.4s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes hero-in {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 6px;
+      color: var(--red);
+      margin-bottom: 24px;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block; width: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red));
+    }
+    .hero-eyebrow::after { transform: scaleX(-1); }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 14vw, 160px);
+      line-height: 0.88;
+      letter-spacing: 6px;
+      color: var(--white);
+      text-shadow:
+        0 0 80px rgba(74,158,255,0.15),
+        0 2px 0 rgba(0,0,0,0.8);
+      margin-bottom: 8px;
+    }
+    .hero-title .colon { color: var(--red); }
+
+    .hero-sub {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(20px, 4vw, 36px);
+      letter-spacing: 12px;
+      color: var(--text-dim);
+      margin-bottom: 48px;
+    }
+
+    .hero-rule {
+      width: 320px; height: 1px; margin: 0 auto 40px;
+      background: linear-gradient(90deg,
+        transparent, var(--blue), var(--red), var(--blue), transparent);
+    }
+
+    .hero-mandate {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      line-height: 2;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      margin-bottom: 56px;
+    }
+    .hero-mandate em {
+      color: var(--blue-light);
+      font-style: normal;
+    }
+
+    .hero-cta {
+      display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 36px;
+      border: 1px solid;
+      position: relative;
+      transition: all 0.25s;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    }
+    .btn-primary {
+      background: var(--red);
+      border-color: var(--red);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--red-glow);
+      box-shadow: 0 0 30px rgba(191,28,28,0.5);
+      color: #fff;
+    }
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--text-dim);
+    }
+    .btn-secondary:hover {
+      border-color: var(--blue-light);
+      color: var(--blue-light);
+      box-shadow: 0 0 20px rgba(74,158,255,0.15);
+    }
+
+    /* ── TICKER ────────────────────────────────────────────────── */
+    .ticker {
+      background: rgba(10,18,40,0.95);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .ticker::before, .ticker::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 80px;
+      z-index: 2;
+    }
+    .ticker::before { left: 0; background: linear-gradient(90deg, var(--bg2), transparent); }
+    .ticker::after  { right: 0; background: linear-gradient(-90deg, var(--bg2), transparent); }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: ticker-scroll 40s linear infinite;
+      white-space: nowrap;
+    }
+    @keyframes ticker-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 0 40px;
+      color: var(--text-dim);
+    }
+    .ticker-item .dot {
+      display: inline-block;
+      width: 5px; height: 5px;
+      background: var(--red);
+      border-radius: 50%;
+      margin-right: 16px;
+      vertical-align: middle;
+      animation: blink 2s ease-in-out infinite;
+    }
+    .ticker-item.alert { color: var(--red); }
+    .ticker-item.info  { color: var(--blue-light); }
+
+    /* ── SECTION BASE ──────────────────────────────────────────── */
+    section {
+      padding: 100px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 6px;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 6vw, 72px);
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    .section-body {
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--text);
+      max-width: 640px;
+    }
+
+    /* ── MISSION SECTION ───────────────────────────────────────── */
+    .mission {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 120px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+    .mission-visual {
+      position: relative;
+    }
+    .mission-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 40px;
+      position: relative;
+      clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+    }
+    .mission-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(74,158,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .mission-card-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: var(--text-faint);
+      margin-bottom: 24px;
+    }
+    .three-laws {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .law {
+      display: flex; align-items: flex-start; gap: 20px;
+    }
+    .law-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      line-height: 1;
+      color: var(--border);
+      flex-shrink: 0;
+      width: 36px;
+    }
+    .law-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--text);
+      line-height: 1.5;
+      padding-top: 6px;
+      text-transform: uppercase;
+    }
+    .law:hover .law-num { color: var(--red); transition: color 0.2s; }
+    .law:hover .law-text { color: var(--white); transition: color 0.2s; }
+
+    /* ── DIVISIONS GRID ────────────────────────────────────────── */
+    .divisions-wrap {
+      border-top: 1px solid var(--border);
+      padding: 100px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .divisions-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 60px;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .divisions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .div-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: default;
+    }
+    .div-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .div-card:hover { border-color: rgba(74,158,255,0.3); transform: translateY(-3px); }
+    .div-card:hover::after { transform: scaleX(1); }
+
+    .div-code {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--text-faint);
+      margin-bottom: 10px;
+    }
+    .div-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 3px;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .div-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: var(--red);
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .div-desc {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text-dim);
+    }
+    .div-card.special {
+      background: linear-gradient(135deg, rgba(201,160,74,0.05) 0%, var(--panel) 60%);
+      border-color: rgba(201,160,74,0.2);
+    }
+    .div-card.special .div-name { color: var(--gold); }
+    .div-card.special .div-tag  { color: var(--gold); }
+    .div-card.special::after    { background: var(--gold); }
+
+    /* ── LORE SECTION ──────────────────────────────────────────── */
+    .lore {
+      border-top: 1px solid var(--border);
+      padding: 100px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+    .lore-text { display: flex; flex-direction: column; justify-content: center; }
+    .lore-quote-block {
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .quote-card {
+      background: var(--panel);
+      border-left: 3px solid var(--red);
+      padding: 28px 32px;
+      position: relative;
+    }
+    .quote-card.blue  { border-left-color: var(--blue-light); }
+    .quote-card.gold  { border-left-color: var(--gold); }
+    .quote-text {
+      font-family: 'Barlow', sans-serif;
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .quote-attr {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+    }
+
+    /* ── JOIN SECTION ──────────────────────────────────────────── */
+    .join-wrap {
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .join {
+      padding: 100px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .join-steps {
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .step {
+      display: flex; gap: 24px; align-items: flex-start;
+    }
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      line-height: 1;
+      color: var(--border);
+      flex-shrink: 0;
+      width: 40px;
+      transition: color 0.2s;
+    }
+    .step:hover .step-num { color: var(--red); }
+    .step-content {}
+    .step-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .step-desc {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text-dim);
+    }
+
+    /* ── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      padding: 48px 32px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 6px;
+      color: var(--text-dim);
+    }
+    .footer-brand span { color: var(--red); }
+    .footer-copy {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--text-faint);
+      letter-spacing: 2px;
+      text-align: right;
+    }
+
+    /* ── SCROLL REVEAL ─────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .mission, .lore, .join { grid-template-columns: 1fr; gap: 48px; }
+      .divisions-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .divisions-grid { grid-template-columns: 1fr; }
+      .hero-title { letter-spacing: 2px; }
+      .topbar { padding: 0 16px; }
+    }
+
+    /* ── GLITCH ON TITLE ───────────────────────────────────────── */
+    .glitch {
+      position: relative;
+    }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute; inset: 0;
+      font-family: inherit; font-size: inherit;
+      letter-spacing: inherit; line-height: inherit;
+      color: inherit;
+    }
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 var(--red);
+      clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
+      animation: glitch-1 6s infinite linear;
+    }
+    .glitch::after {
+      left: -2px;
+      text-shadow: 2px 0 var(--blue-light);
+      clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+      animation: glitch-2 8s infinite linear;
+    }
+    @keyframes glitch-1 {
+      0%,94%,100% { transform: none; opacity: 0; }
+      95% { transform: translateX(-3px); opacity: 0.7; }
+      96% { transform: translateX(3px); opacity: 0.5; }
+      97% { transform: none; opacity: 0; }
+    }
+    @keyframes glitch-2 {
+      0%,92%,100% { transform: none; opacity: 0; }
+      93% { transform: translateX(4px) skewX(2deg); opacity: 0.6; }
+      94% { transform: translateX(-2px); opacity: 0; }
+    }
+
+    /* Status dot */
+    .status-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #FFD700;
+      margin-right: 8px;
+      box-shadow: 0 0 8px #FFD700;
+      animation: pulse-green 2s ease-in-out infinite;
+    }
+    @keyframes pulse-green {
+      0%,100% { box-shadow: 0 0 8px #FFD700; }
+      50%      { box-shadow: 0 0 16px #FFD700, 0 0 32px rgba(255,215,0,0.3); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">SYS<span>:</span>HUNTER</div>
+      <div class="topbar-sep"></div>
+      <div class="topbar-class">CLASSIFICATION: OPERATIVE ACCESS</div>
+    </div>
+    <nav>
+      <a href="#mission">Mission</a>
+      <a href="#divisions">Divisions</a>
+      <a href="#lore">Archive</a>
+      <a href="#join">Enlist</a>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero" id="top">
+    <div class="hero-grid"></div>
+    <div class="hero-vignette"></div>
+    <div class="scanbeam"></div>
+    <div class="bracket bracket-tl"></div>
+    <div class="bracket bracket-tr"></div>
+    <div class="bracket bracket-bl"></div>
+    <div class="bracket bracket-br"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">SYSTEMATIC YIELD SALVATION</div>
+
+      <h1 class="hero-title">
+        <span class="glitch" data-text="SYS">SYS</span><span class="colon">:</span><br>
+        HUNTER
+      </h1>
+
+      <div class="hero-sub">HUNTER DIVISION</div>
+      <div class="hero-rule"></div>
+
+      <p class="hero-mandate">
+        <span class="status-dot"></span>
+        <em>CONSTRUCTION</em> &nbsp;/&nbsp; TIMELINE STABILITY: <em>73%</em> &nbsp;/&nbsp; PRIMARY THREAT: <em style="background:#4A9EFF22; color: transparent; text-shadow: none; letter-spacing: 2px; user-select:none; filter: blur(0px);">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</em><br><br>
+        A Roblox myth hunting group with a military twist.<br>
+        We explore creepy games, investigate weird entities, run ops together,<br>
+        and look pretty cool doing it.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#join" class="btn btn-primary">ENLIST NOW</a>
+        <a href="#divisions" class="btn btn-secondary">VIEW DIVISIONS</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track" id="tickerTrack">
+      <span class="ticker-item alert"><span class="dot"></span>PRIORITY ALERT: WYSTERIAN RELIC ACTIVITY DETECTED — ECHO DIVISION ON STANDBY</span>
+      <span class="ticker-item info"><span class="dot"></span>RELAY-03 "DARK HUNTER" STABILIZATION: IN PROGRESS — BRIDGE DIVISION COORDINATING</span>
+      <span class="ticker-item"><span class="dot"></span>TIMELINE INTEGRITY: 73% — MONITOR FOR FRACTURE INDICATORS</span>
+      <span class="ticker-item alert"><span class="dot"></span>PRIORITY ALERT: CARIDA SECURITY SWEEP — VERDANT ABYSS SECTOR CLEARED</span>
+      <span class="ticker-item info"><span class="dot"></span>EXCEL-1 CONTAINMENT: THREE ENTITIES SECURED — PHOENIX REHABILITATION INTAKE PENDING</span>
+      <span class="ticker-item"><span class="dot"></span>PROJECT RELAY ALLIANCE CONFIRMED — GUARDIAN [RELAY-05] COMMAND ACTIVE</span>
+      <span class="ticker-item"><span class="dot"></span>SYS: HUNTER RECRUITMENT OPEN — ALL DIVISIONS ACCEPTING APPLICATIONS</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="ticker-item alert"><span class="dot"></span>PRIORITY ALERT: WYSTERIAN RELIC ACTIVITY DETECTED — ECHO DIVISION ON STANDBY</span>
+      <span class="ticker-item info"><span class="dot"></span>RELAY-03 "DARK HUNTER" STABILIZATION: IN PROGRESS — BRIDGE DIVISION COORDINATING</span>
+      <span class="ticker-item"><span class="dot"></span>TIMELINE INTEGRITY: 73% — MONITOR FOR FRACTURE INDICATORS</span>
+      <span class="ticker-item alert"><span class="dot"></span>PRIORITY ALERT: CARIDA SECURITY SWEEP — VERDANT ABYSS SECTOR CLEARED</span>
+      <span class="ticker-item info"><span class="dot"></span>EXCEL-1 CONTAINMENT: THREE ENTITIES SECURED — PHOENIX REHABILITATION INTAKE PENDING</span>
+      <span class="ticker-item"><span class="dot"></span>PROJECT RELAY ALLIANCE CONFIRMED — GUARDIAN [RELAY-05] COMMAND ACTIVE</span>
+      <span class="ticker-item"><span class="dot"></span>SYS: HUNTER RECRUITMENT OPEN — ALL DIVISIONS ACCEPTING APPLICATIONS</span>
+    </div>
+  </div>
+
+  <!-- MISSION -->
+  <div class="mission reveal" id="mission">
+    <div class="mission-text">
+      <div class="section-label">// MISSION STATEMENT</div>
+      <h2 class="section-title">THE CODE</h2>
+      <p class="section-body">
+        SYS: Hunter is a Roblox myth hunting group with a military-themed structure. We explore anomalous games, track down platform myths, run group operations, and build out lore around our findings. Think tactical team meets paranormal investigation.
+      </p>
+      <br>
+      <p class="section-body">
+        We're organized into divisions so everyone has a role that fits them — whether you want to be on the front line engaging myths, documenting everything you find, or making sure operations run smoothly.
+      </p>
+      <br>
+      <p class="section-body" style="color: var(--text-dim); font-size: 14px;">
+        We take the roleplay seriously enough to make it fun, but not so seriously that it stops being a game. Good vibes, cool lore, and the occasional genuinely unsettling myth encounter.
+      </p>
+    </div>
+    <div class="mission-visual">
+      <div class="mission-card">
+        <div class="mission-card-label">// DIRECTIVE — OPERATIVE HANDBOOK REF 1.3</div>
+        <div class="three-laws">
+          <div class="law">
+            <div class="law-num">I</div>
+            <div class="law-text">We hunt what threatens existence.</div>
+          </div>
+          <div class="law">
+            <div class="law-num">II</div>
+            <div class="law-text">We protect what sustains it.</div>
+          </div>
+          <div class="law">
+            <div class="law-num">III</div>
+            <div class="law-text">We never become what we hunt.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIVISIONS -->
+  <div class="divisions-wrap reveal" id="divisions">
+    <div class="divisions-header">
+      <div>
+        <div class="section-label">// ORGANIZATIONAL STRUCTURE</div>
+        <h2 class="section-title">DIVISIONS</h2>
+      </div>
+      <p style="font-size:13px; color: var(--text-dim); max-width: 360px; line-height:1.8; font-family: 'Share Tech Mono', monospace; letter-spacing: 1px;">
+        SEVEN PRIMARY DIVISIONS + TWO SPECIAL ATTACHED UNITS.<br>
+        EACH OPERATIVE IS ASSIGNED TO ONE PRIMARY DIVISION.
+      </p>
+    </div>
+
+    <div class="divisions-grid">
+
+      <div class="div-card">
+        <div class="div-code">DIVISION ONE</div>
+        <div class="div-name">VANGUARD</div>
+        <span class="div-tag">"The Edge of the Blade"</span>
+        <p class="div-desc">The ones who actually go in. Vanguard handles direct myth engagements and leads field operations. If there's something weird in a server, these are the guys heading straight for it.</p>
+      </div>
+
+      <div class="div-card">
+        <div class="div-code">DIVISION TWO</div>
+        <div class="div-name">ARCHIVE</div>
+        <span class="div-tag">"What Is Remembered Cannot Be Repeated"</span>
+        <p class="div-desc">The group's paper trail. Archive documents every myth, encounter, and oddity we come across. If you love writing reports and building lore, this is your division.</p>
+      </div>
+
+      <div class="div-card">
+        <div class="div-code">DIVISION THREE</div>
+        <div class="div-name">AEGIS</div>
+        <span class="div-tag">"The Shield That Never Shatters"</span>
+        <p class="div-desc">Defense and damage control. Aegis keeps an eye on the platform for new anomalies and makes sure ongoing operations don't go sideways. The quiet professionals.</p>
+      </div>
+
+      <div class="div-card">
+        <div class="div-code">DIVISION FIVE</div>
+        <div class="div-name">BRIDGE</div>
+        <span class="div-tag">"Translation Is the First Weapon Against War"</span>
+        <p class="div-desc">Communication specialists. Bridge handles negotiations with non-hostile myths and coordinates between divisions. Great fit if you're more into talking than shooting.</p>
+      </div>
+
+      <div class="div-card">
+        <div class="div-code">DIVISION SIX</div>
+        <div class="div-name">ECHO</div>
+        <span class="div-tag">"Some Battles Must Be Fought Before They Begin"</span>
+        <p class="div-desc">Intel and threat tracking. Echo monitors for new anomaly patterns and keeps tabs on priority targets. The group's early-warning system — run directly by Command.</p>
+      </div>
+
+      <div class="div-card">
+        <div class="div-code">DIVISION SEVEN</div>
+        <div class="div-name">PHOENIX</div>
+        <span class="div-tag">"From Endings, Beginnings"</span>
+        <p class="div-desc">Recovery and support. When an op goes badly or a member needs a hand, Phoenix steps in. They also handle myth rehabilitation for entities that turn out to be more lost than hostile.</p>
+      </div>
+
+      <div class="div-card special">
+        <div class="div-code">SPECIAL UNIT — ATTACHED</div>
+        <div class="div-name">CARIDA</div>
+        <span class="div-tag">"The Line Between the Living and the Threat"</span>
+        <p class="div-desc">Personal security for Command-level personnel. Small, invite-only, and very good at their job. If you're protecting the Commander, you're Carida.</p>
+      </div>
+
+      <div class="div-card special">
+        <div class="div-code">SPECIAL UNIT — ATTACHED</div>
+        <div class="div-name">EXCEL-1</div>
+        <span class="div-tag">"Controlled. Secured. Neutralized."</span>
+        <p class="div-desc">Containment and extraction. When a myth needs handling carefully — or someone needs pulling out of a bad spot — Excel-1 gets the call. Also runs joint ops with Carida under Protocol THRESHOLD for high-value personnel extractions.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LORE -->
+  <div class="lore reveal" id="lore">
+    <div class="lore-text">
+      <div class="section-label">// DECLASSIFIED ARCHIVE</div>
+      <h2 class="section-title">IN THEIR WORDS</h2>
+      <p class="section-body">
+        SYS: Hunter runs on a lore foundation built around myths, timelines, and a cast of characters with their own histories. You don't need to know all of it to join — but it gives ops a lot more flavour.
+      </p>
+      <br>
+      <p class="section-body">
+        These quotes are pulled straight from the group's story. The myths are real (in-universe). The characters are real (to us). The weird games? Definitely real.
+      </p>
+      <br>
+      <p class="section-body" style="color: var(--text-dim); font-size: 14px;">
+        Check in with Archive Division to get up to speed on current threats and ongoing investigations.
+      </p>
+    </div>
+    <div class="lore-quote-block">
+      <div class="quote-card">
+        <p class="quote-text">"I was built to kill gods. But somewhere along the way, I learned that dying for something is easy. Living for it? That's the real war."</p>
+        <div class="quote-attr">— RYU HUNTER &nbsp;/&nbsp; FOUNDER, SYS: HUNTER &nbsp;/&nbsp; CLEARANCE: COMMANDER</div>
+      </div>
+      <div class="quote-card blue">
+        <p class="quote-text">"The myths aren't the monsters. Loneliness is. Fear is. We won't let them hurt the lost ones anymore."</p>
+        <div class="quote-attr">— GUARDIAN [RELAY-05] &nbsp;/&nbsp; PROJECT RELAY COMMANDER &nbsp;/&nbsp; ALLY</div>
+      </div>
+      <div class="quote-card gold">
+        <p class="quote-text">"My mercy is a privilege. Remember that when you beg for it."</p>
+        <div class="quote-attr">— NADIYA OF WYSTERIA &nbsp;/&nbsp; PRIORITY TARGET &nbsp;/&nbsp; THREAT LEVEL: OMEGA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOIN -->
+  <div class="join-wrap">
+    <div class="join reveal" id="join">
+      <div>
+        <div class="section-label">// RECRUITMENT — OPEN</div>
+        <h2 class="section-title">ENLIST</h2>
+        <p class="section-body">
+          We're open to anyone who's into Roblox myth hunting and likes the idea of a military-structured group. You don't need experience — just a willingness to show up, participate, and not be weird about it.
+        </p>
+        <br>
+        <p class="section-body" style="font-size:14px; color: var(--text-dim);">
+          New members start as Initiates for two weeks, then get a full Division assignment once they've joined an op or two. Pretty low-key process, we promise.
+        </p>
+        <br><br>
+        <a href="https://www.roblox.com/groups" target="_blank" class="btn btn-primary" style="text-decoration:none; display:inline-block;">JOIN ON ROBLOX</a>
+      </div>
+      <div class="join-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <div class="step-title">Join the Group</div>
+            <div class="step-desc">Hit the join button on our Roblox group page. Someone from leadership will review it — usually pretty quick.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <div class="step-title">Quick Intake</div>
+            <div class="step-desc">A short chat in-game or on our comms server. Just tell us a bit about yourself and which division sounds interesting. No essay required.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <div class="step-title">Two-Week Initiate Period</div>
+            <div class="step-desc">Join at least one operation with a senior member. Get a feel for how we run things. Ask questions. It's pretty chill.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <div class="step-title">Full Member</div>
+            <div class="step-desc">Get your Division assignment and your rank. Now you're properly in. Go find some myths.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">SYS<span>:</span>HUNTER</div>
+      <div class="footer-copy">
+        SYSTEMATIC YIELD SALVATION — HUNTER DIVISION<br>
+        CLASSIFICATION: OPERATIVE ACCESS &nbsp;|&nbsp; ALL RECORDS CLASSIFIED BEYOND BLACK<br>
+        FOUNDED BY RYU HUNTER &nbsp;|&nbsp; COMMAND: GUARDIAN [RELAY-05]
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Staggered division card animation
+    const divCards = document.querySelectorAll('.div-card');
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = Array.from(divCards).indexOf(e.target);
+          setTimeout(() => {
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'none';
+          }, idx * 60);
+        }
+      });
+    }, { threshold: 0.05 });
+    divCards.forEach(c => {
+      c.style.opacity = '0';
+      c.style.transform = 'translateY(20px)';
+      c.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.25s, box-shadow 0.25s';
+      cardObserver.observe(c);
+    });
+  </script>
+</body>
+</html>
