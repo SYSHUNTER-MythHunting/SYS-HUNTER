@@ -1,0 +1,28 @@
+[
+  {
+    "id": "fractured-archive",
+    "file": "Database/fractured-archive.html",
+    "title": "THE FRACTURED ARCHIVE",
+    "subtitle": "A Chronicle of Broken Timelines & Digital Consciousness",
+    "classification": "beyond-black",
+    "classLabel": "BEYOND BLACK",
+    "docId": "FA-001",
+    "date": "2025.04.03",
+    "filterTag": "lore",
+    "description": "The complete record of Project RELAY, the Verdant Abyss, and the fracture of Timeline Alpha-7. Documents the digital children, their creator, and the events leading to convergence.",
+    "tags": ["LORE", "PROJECT RELAY", "TIMELINE", "VERDANT ABYSS"]
+  },
+  {
+    "id": "sys-hunter-manual",
+    "file": "Database/sys-hunter-manual.html",
+    "title": "SYS: HUNTER FIELD MANUAL",
+    "subtitle": "Organization, Origins & Operative Doctrine",
+    "classification": "classified",
+    "classLabel": "CLASSIFIED",
+    "docId": "SH-001",
+    "date": "2025.04.05",
+    "filterTag": "internal",
+    "description": "Internal document covering the founding of SYS: Hunter, its division structure, Carida, Excel-1, known threats, and field protocols.",
+    "tags": ["INTERNAL", "SYS: HUNTER", "DIVISIONS", "PROTOCOLS"]
+  }
+]
